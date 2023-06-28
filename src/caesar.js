@@ -20,9 +20,17 @@ const caesarModule = (function () {
   // you can add any code you want within this function scope
 
   function caesar(input, shift=0, encode = true) {
+    //first check if the shift value is 0, greater than 25, or less than -25. If any of these conditions is true, the function returns false to indicate an invalid shift value.
     if(shift===0||shift > 25||shift <-25){return false}
+    // If encode is true, the function performs encoding
     if(encode === true){
+      //The input string is split into an array called msgArray, where each element represents a single character.
       const msgArray = input.split("");
+      //This array is created to store the encoded message.
+      //The map function is used to iterate over each element in msgArray. 
+      //Each element is converted to lowercase, and if it exists in the letters array, its index is obtained. 
+      //The shift value is added to the index, and the resulting index is adjusted to wrap around within the letters array (if it goes beyond the bounds). The corresponding letter at the adjusted index is added to numMsgArray. 
+      //If the element is not found in letters, it is added as is to numMsgArray.
       const numMsgArray =  msgArray.map((element)=>{
         element = element.toLowerCase();
         if(letters.includes(element)){
@@ -33,18 +41,21 @@ const caesarModule = (function () {
           } else if(num < 0){
             num = num + 26;
           }
-          return letters[num]//letters[num] same way
+          return letters[num]
         }else{
           return element;
         };      
       });
+      //numMsgArray is joined into a string and returned as the encoded message.
       return numMsgArray.join("")
     }else{
+      //If encode is false, the function performs decoding.
       const msgArray = input.split("");
       const numMsgArray =  msgArray.map((element)=>{
         element = element.toLowerCase();
         if(letters.includes(element)){
           let num = letters.indexOf(element);
+          //The code is similar to the encoding logic, but in this case, the shift value is subtracted from the index to reverse the encoding process.
           num = num - shift;
           if(num > 25){
             num = num - 26;
@@ -56,6 +67,7 @@ const caesarModule = (function () {
           return element;
         };      
       });
+      //The resulting decoded message is returned as a string.
       return numMsgArray.join("")
     }
    
