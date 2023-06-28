@@ -36,31 +36,6 @@ const polybiusModule = (function () {
     45:'y',
     55:'z'
   }
-  // const lookup = [['a','b','c','d','e'],
-  //                 ['f','g','h','i/j','k'],
-  //                 ['l','m','n','o','p'],
-  //                 ['q','r','s','t','u'],
-  //                 ['v','w','x','y','z']]
-  // transform letter to number, if it is a number
-  // function letterToNum(letter){
-  //   for(let i=0; i<lookup.length;i++){
-  //     for(let j=0;j<lookup[i].length;j++){
-  //       if(lookup[i][j] === letter){
-  //         return `${i}${j}`
-  //       }
-  //     }
-  //   }
-  //   return false;
-  // }
-  // function numToLetter(num){
-  //   const num1 = Number(num[0]);
-  //   const num2 = Number(num[1]);
-  //   try{
-  //     return lookup[num1][num2]
-  //   }catch(error){
-  //     return false;
-  //   }
-  // }
 
   function polybius(input, encode = true) {
     // your solution code here
@@ -83,21 +58,7 @@ const polybiusModule = (function () {
       return element;
     })
     return transferMsg.join("")
-      // return inputMsgLowcaseArr.reduce((accumulator, element)=>{
-      //   for(let i=0; i<lookup.length;i++){
-      //     for(let j=0;j<lookup[i].length;j++){
-      //       if(lookup[i][j] === element){
-      //         return accumulator += `${i}${j}`
-      //       }
-      //     }
-        //}
 
-        //  if(letterToNum(element)){
-        //   return accumulator += letterToNum;
-        //  } else{
-        //   return accumulator += element;
-        //  }
-      //},'')
     }else{
       //split the input to an array, get rid of space
       const inputMsgDecodeArray = input.split(" ");
@@ -124,15 +85,6 @@ const polybiusModule = (function () {
         }
       })
       return resultArray.join("").trimEnd();
-
-    //   const splitedMsg = [];
-    //   const spaceIndex = inputMsgLowcaseArr.indexOf(" ");
-    //   const nospaceMsg = inputMsgLowcaseArr.splice(spaceIndex,1)
-    //   for(let i =0;i<nospaceMsg.lengh;i+=2){
-    //     splitedMsg.push(`${nospaceMsg[i]}${nospaceMsg[i+1]}`)
-    // }
-    // const finishedMsg = splitedMsg.splice(spaceIndex,0," ").join("");
-    // return finishedMsg
   }
 }
 
