@@ -6,6 +6,7 @@
 
 //each letter has a number to match, unique value is I/J = 42
 // use object store number as key, leter as value
+//need more comments
 const polybiusModule = (function () {
   // you can add any code you want within this function scope
   const lookup = {
