@@ -36,19 +36,21 @@ const polybiusModule = (function () {
     45:'y',
     55:'z'
   }
-
+//the function takes two parameters,input is a string, encode can be true or false
   function polybius(input, encode = true) {
     // your solution code here
+    //if encode is true, then run the code inside if statement.
     if(encode === true){
-      //to lowercase and get an array
+      //The input string is converted to lowercase and split into an array called inputMsgLowcaseArr. This array will be used to process each character of the input.
       const inputMsgLowcaseArr = input.toLowerCase().split("");
-      //loop through the array, change i or j to i/j
+      //The loop iterates over each element in inputMsgLowcaseArr to check if it is either 'i' or 'j'. If found, the element is replaced with '(i/j)'
       for(let i=0;i<inputMsgLowcaseArr.length;i++){
         if(inputMsgLowcaseArr[i]==='i'||inputMsgLowcaseArr[i]==='j'){
           inputMsgLowcaseArr[i] = '(i/j)';
         }
       };
-      //change letter to word or don't change if it is space
+      //This array is created to store the encoded message
+      //map function is used to iterate over each element in inputMsgLowcaseArr. It checks if the element exists in lookup and returns the corresponding key. If no match is found, the element itself is added to transferMsg.
     const transferMsg = inputMsgLowcaseArr.map((element)=>{
       for(let i in lookup){
         if(lookup[i] === element){
@@ -57,17 +59,21 @@ const polybiusModule = (function () {
       }
       return element;
     })
+    //transferMsg is joined into a string and returned as the encoded message.
     return transferMsg.join("")
-
+//If encode is false, the code executes the decoding logic.
     }else{
-      //split the input to an array, get rid of space
+      //The input string is split by spaces into an array called inputMsgDecodeArray. This array represents the encoded message.
       const inputMsgDecodeArray = input.split(" ");
+      //The code checks if the combined length of inputMsgDecodeArray is odd. If it is odd, it means the input is invalid, and false is returned.
       if(inputMsgDecodeArray.join("").length%2 !== 0){
         return false
       }
+      //This array is created to store the decoded message as a series of numbers.
       const transferArray = [];
-      //get an array of strings(numbers)
-      //loop through the array to get single word, then split single word to an array, loop through the array, add number to transferArray.
+      //loops iterate over each element in inputMsgDecodeArray. 
+      //Each element is split into an array of individual characters. 
+      //Then, within this array, the code takes every two characters at a time (num1 and num2) and adds them to transferArray as a combined string.
       for(let subArr of inputMsgDecodeArray){
         subArr = subArr.split("");
         for(let j=0;j<subArr.length;j+=2){
@@ -75,8 +81,11 @@ const polybiusModule = (function () {
           const num2 = subArr[j+1];
           transferArray.push(`${num1}${num2}`)
         }
+        //After processing each element in inputMsgDecodeArray, the code adds a space character to transferArray to represent the spacing between words.
         transferArray.push(" ")
       }
+      //This array is created to store the decoded message.
+      //The map function iterates over each element in transferArray. If the element is not equal to a space character, it looks up the corresponding value in the lookup table and adds it to resultArray. If the element is a space character, it is directly added to resultArray.
       const resultArray = transferArray.map((element)=>{
         if(element !== " "){
           return lookup[element]
@@ -84,6 +93,7 @@ const polybiusModule = (function () {
           return element;
         }
       })
+      //resultArray is joined into a string, trailing whitespace is removed using trimEnd(), and the decoded message is returned.
       return resultArray.join("").trimEnd();
   }
 }
@@ -93,43 +103,8 @@ const polybiusModule = (function () {
   };
 })();
 
-//const polybius = polybiusModule.polybius
-//console.log(polybius("4432423352125413",false))
 
 module.exports = { polybius: polybiusModule.polybius };
 
 
 
-/**
- Function Signature: The function polybius takes two parameters: input (a string) and encode (a boolean with a default value of true). The purpose of the function is to perform encoding or decoding based on the value of encode.
-
-Encode: If encode is true, the code executes the encoding logic.
-
-a. inputMsgLowcaseArr: The input string is converted to lowercase and split into an array called inputMsgLowcaseArr. This array will be used to process each character of the input.
-
-b. for loop: The loop iterates over each element in inputMsgLowcaseArr to check if it is either 'i' or 'j'. If found, the element is replaced with '(i/j)'.
-
-c. transferMsg array: This array is created to store the encoded message.
-
-d. map function: The map function is used to iterate over each element in inputMsgLowcaseArr. It checks if the element exists in the lookup table and returns the corresponding key. If no match is found, the element itself is added to transferMsg.
-
-e. Finally, transferMsg is joined into a string and returned as the encoded message.
-
-Decode: If encode is false, the code executes the decoding logic.
-
-a. inputMsgDecodeArray: The input string is split by spaces into an array called inputMsgDecodeArray. This array represents the encoded message.
-
-b. Length validation: The code checks if the combined length of inputMsgDecodeArray is odd. If it is odd, it means the input is invalid, and false is returned.
-
-c. transferArray array: This array is created to store the decoded message as a series of numbers.
-
-d. Nested for loops: The loops iterate over each element in inputMsgDecodeArray. Each element is split into an array of individual characters. Then, within this array, the code takes every two characters at a time (num1 and num2) and adds them to transferArray as a combined string.
-
-e. Adding spacing: After processing each element in inputMsgDecodeArray, the code adds a space character to transferArray to represent the spacing between words.
-
-f. resultArray array: This array is created to store the decoded message.
-
-g. map function: The map function iterates over each element in transferArray. If the element is not equal to a space character, it looks up the corresponding value in the lookup table and adds it to resultArray. If the element is a space character, it is directly added to resultArray.
-
-h. Finally, resultArray is joined into a string, trailing whitespace is removed using trimEnd(), and the decoded message is returned.
- */
